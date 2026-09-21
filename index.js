@@ -13,6 +13,8 @@ weatherForm.addEventListener("submit", async (e) => {
         try {
             const weatherData = await getWeatherData(city)
             showWeatherInfo(weatherData)
+
+            errorDisplay.style.display = "none"
         } catch (error) {
             console.error(error)
             showError(error)
@@ -34,7 +36,12 @@ async function getWeatherData(city) {
 }
 
 function showWeatherInfo(data) {
-
+    cardDisplay.style.display = "flex"
+    cityDisplay.textContent = data.name
+    degDisplay.textContent = `${(data.main.temp - 273.15).toFixed(2)}°`
+    cloudDisplay.textContent = data.weather[0].main
+    console.log(data)
+    infoDisplay.textContent = `Humidity: ${data.main.humidity}%`
 }
 
 function showError(msg) {
